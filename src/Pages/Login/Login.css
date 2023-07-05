@@ -1,0 +1,14 @@
+.form--logout, .form--login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 120px;
+}
+.form--btn{
+    width: 50%;
+}
+.form--login input{
+    width: 50%;
+}
