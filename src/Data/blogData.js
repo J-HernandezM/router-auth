@@ -4,7 +4,7 @@ const blogData = [
         title: 'Que es React',
         slug: 'que-es-react',
         content: 'react es una chimba',
-        author: 'juanchocarrancho'
+        author: 'mari'
     },
     {
         id:2,
@@ -18,14 +18,14 @@ const blogData = [
         title: 'Que es JavaScript',
         slug: 'que-es-javascript',
         content: 'JavaScript es una chimba',
-        author: 'juanchocarrancho'
+        author: 'wilson'
     },
     {
         id:4,
         title: 'Que es La vida',
         slug: 'que-es-la-vida',
         content: 'La vida es una chimba',
-        author: 'juanchocarrancho'
+        author: 'juan'
     },
 ]
 

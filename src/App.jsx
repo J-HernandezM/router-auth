@@ -8,7 +8,7 @@ import { Post } from './Components/Post'
 import { Menu } from './Components/Menu'
 import { Login } from './Pages/Login'
 import { Logout } from './Pages/Logout'
-import { AuthProvider } from './auth.jsx'
+import { AuthProvider, AuthRoute, NoAuthRoute } from './auth.jsx'
 
 function App() {
   return (
@@ -23,9 +23,27 @@ function App() {
               <Route path=':slug' element={<Post />} />
             </Route>
 
-            <Route path='/login' element={<Login/>} />
-            <Route path='/logout' element={<Logout/>} />
-            <Route path='/profile' element={<Profile/>} />
+            <Route path='/login'
+              element={
+                <NoAuthRoute>
+                  <Login/>
+                </NoAuthRoute>
+              } 
+            />
+            <Route path='/logout'
+              element={
+                <AuthRoute>
+                  <Logout/>
+                </AuthRoute>
+              } 
+            />
+            <Route path='/profile'
+              element={
+                <AuthRoute>
+                  <Profile/>
+                </AuthRoute>
+              } 
+            />
 
 
             <Route path='*' element={<p>Not found</p>} />

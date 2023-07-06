@@ -6,7 +6,7 @@ function Profile(props) {
     return (
         <>
             <h1>Profile</h1>
-            <p>Welcome, {auth?.user?.username?auth.user.username:'no-name-yet'}</p>
+            <p>Welcome, {auth.user.username}</p>
         </>
     );
 }
