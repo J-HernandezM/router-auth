@@ -27,6 +27,34 @@ const blogData = [
         content: 'La vida es una chimba',
         author: 'juan'
     },
+    {
+        id:4,
+        title: 'Que es La vida',
+        slug: 'que-es-la-vid',
+        content: 'La vida es una chimba',
+        author: 'juan'
+    },
+    {
+        id:4,
+        title: 'Que es La vida',
+        slug: 'que-es-la-via',
+        content: 'La vida es una chimba',
+        author: 'juan'
+    },
+    {
+        id:4,
+        title: 'Que es La vida',
+        slug: 'que-es-la-vda',
+        content: 'La vida es una chimba',
+        author: 'juan'
+    },
+    {
+        id:4,
+        title: 'Que es La vida',
+        slug: 'que-es-la-ida',
+        content: 'La vida es una chimba',
+        author: 'juan'
+    },
 ]
 
 export {blogData}

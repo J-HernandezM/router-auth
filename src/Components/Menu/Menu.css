@@ -10,3 +10,7 @@ nav ul {
     width: 400px;
     justify-content: space-between;
 }
+nav{
+    display: flex;
+    justify-content: center;
+}

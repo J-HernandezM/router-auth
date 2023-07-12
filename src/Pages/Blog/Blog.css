@@ -1,0 +1,33 @@
+.posts--grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-gap: 8px;
+    justify-content: center;
+    
+    margin: 35px 0 35px;
+    min-width: 360px;
+    width: 80%;
+    max-width: 900px;
+
+    list-style: none;
+}
+.posts--link{
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+}
+.posts--link:hover{
+    opacity: .8;
+}
+.post--title{
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #f1f1f1;
+    margin-bottom: 4px;
+}
+.post{
+    min-width: 360px;
+    width: 80%;
+    max-width: 900px;
+}

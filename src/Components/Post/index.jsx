@@ -2,6 +2,7 @@ import React from 'react';
 import { blogData } from '../../Data/blogData';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth';
+import { Paper } from '@mui/material';
 
 const backendRoles = [{username:'juan', role: 'student'}, {username:'wilson', role: 'admin'}, {username:'andrea', role: 'admin'}, {username:'mari', role: 'student'}]
 
@@ -47,7 +48,7 @@ function Post(props) {
     }
 
     return (
-        <div className='post'>
+        <Paper className='post'>
             <h2>{blogpost.title}</h2>
             <p>{blogpost.content}</p>   
             <p>{blogpost.author}</p>
@@ -56,7 +57,7 @@ function Post(props) {
             <div className='skills'>
                 {userSkills}
             </div>
-        </div>
+        </Paper>
     );
 }
 
