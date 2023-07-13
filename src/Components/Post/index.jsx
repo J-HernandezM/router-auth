@@ -3,6 +3,10 @@ import { blogData } from '../../Data/blogData';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth';
 import { Paper } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const backendRoles = [{username:'juan', role: 'student'}, {username:'wilson', role: 'admin'}, {username:'andrea', role: 'admin'}, {username:'mari', role: 'student'}]
 
@@ -14,13 +18,13 @@ const admins  = [{username:'juan3', role: 'admin'},{username:'juan6', role: 'adm
 const allRoles = [editors, betatests, admins]
 
 const skills = {
-    editor: <button>Editar</button>,
-    betatest: <button>Testear</button>,
-    admin:  <div>
-                <button>Testear</button>
-                <button>Editar</button>
-                <button>Administrar</button>
-            </div>
+    editor: <button><EditIcon fontSize='small' /></button>,
+    author: <button><ArrowBackIcon fontSize='small' /></button>,
+    admin:  <>
+                <button><EditIcon fontSize='small' /></button>
+                <button><DeleteIcon fontSize='small' /></button>
+                <button><AddCircleOutlineIcon fontSize='small' /></button>
+            </>
 }
 
 function Post(props) {
@@ -49,12 +53,12 @@ function Post(props) {
 
     return (
         <Paper className='post'>
-            <h2>{blogpost.title}</h2>
-            <p>{blogpost.content}</p>   
-            <p>{blogpost.author}</p>
-            <button onClick={returnToBlog}>Volver al blog</button>
+            <h2 className='post--h2'>{blogpost.title}</h2>
+            <p className='post--content'>{blogpost.content}</p>   
+            <p className='post--author'>{blogpost.author}</p>
             {/* {(userExistInBackend && userCanDelete) && <button>Eliminar</button>} */}
             <div className='skills'>
+                <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
                 {userSkills}
             </div>
         </Paper>

@@ -27,7 +27,20 @@
     margin-bottom: 4px;
 }
 .post{
+    position: relative;
+    padding: 20px;
     min-width: 360px;
-    width: 80%;
     max-width: 900px;
+    min-height: 500px;
+    width: 80%;
+
+}
+.skills{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 130px;
 }
