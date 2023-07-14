@@ -7,23 +7,27 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ButtonModal } from '../ButtonModal';
 
 const backendRoles = [{username:'juan', role: 'student'}, {username:'wilson', role: 'admin'}, {username:'andrea', role: 'admin'}, {username:'mari', role: 'student'}]
 
 //Challenge Roles & permissions
 const editors = [{username:'juan1', role: 'editor'}, {username:'juan4', role: 'editor'}]
-const betatests = [{username:'juan2', role: 'betatest'}, {username:'juan5', role: 'betatest'}]
+const betatests = [{username:'juan2', role: 'author'}, {username:'juan5', role: 'author'}]
 const admins  = [{username:'juan3', role: 'admin'},{username:'juan6', role: 'admin'}]
 
 const allRoles = [editors, betatests, admins]
 
 const skills = {
-    editor: <button><EditIcon fontSize='small' /></button>,
-    author: <button><ArrowBackIcon fontSize='small' /></button>,
+    editor: <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>,
+    author: <>
+                <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
+                <ButtonModal type={'delete'}><DeleteIcon fontSize='small' /></ButtonModal>
+            </>,
     admin:  <>
-                <button><EditIcon fontSize='small' /></button>
-                <button><DeleteIcon fontSize='small' /></button>
-                <button><AddCircleOutlineIcon fontSize='small' /></button>
+                <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
+                <ButtonModal type={'delete'}><DeleteIcon fontSize='small' /></ButtonModal>
+                <ButtonModal type={'add'}><AddCircleOutlineIcon fontSize='small' /></ButtonModal>
             </>
 }
 
@@ -56,8 +60,7 @@ function Post(props) {
             <h2 className='post--h2'>{blogpost.title}</h2>
             <p className='post--content'>{blogpost.content}</p>   
             <p className='post--author'>{blogpost.author}</p>
-            {/* {(userExistInBackend && userCanDelete) && <button>Eliminar</button>} */}
-            <div className='skills'>
+            <div className={`skills ${!userSkills?'skill1':'allskills' }`} >
                 <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
                 {userSkills}
             </div>

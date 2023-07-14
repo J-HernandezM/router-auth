@@ -9,6 +9,7 @@ import { Menu } from './Components/Menu'
 import { Login } from './Pages/Login'
 import { Logout } from './Pages/Logout'
 import { AuthProvider, AuthRoute, NoAuthRoute } from './auth.jsx'
+import { AllPosts } from './Pages/AllPosts'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/blog' element={<Blog/>} >
               <Route path=':slug' element={<Post />} />
             </Route>
+            <Route path='blog/allPosts' element={<AllPosts />}></Route>
 
             <Route path='/login'
               element={
