@@ -29,35 +29,7 @@ const defaultData = [
         slug: 'que-es-la-vida',
         content: 'La vida es una chimba',
         author: 'juan'
-    },
-    {
-        id:5,
-        title: 'Que es La vida',
-        slug: 'que-es-la-vid',
-        content: 'La vida es una chimba',
-        author: 'juan'
-    },
-    {
-        id:6,
-        title: 'Que es La vida',
-        slug: 'que-es-la-via',
-        content: 'La vida es una chimba',
-        author: 'juan'
-    },
-    {
-        id:7,
-        title: 'Que es La vida',
-        slug: 'que-es-la-vda',
-        content: 'La vida es una chimba',
-        author: 'juan'
-    },
-    {
-        id:8,
-        title: 'Que es La vida',
-        slug: 'que-es-la-ida',
-        content: 'La vida es una chimba',
-        author: 'juan'
-    },
+    }
 ]
 
 const BlogContextProvider = ({children}) => {
@@ -72,8 +44,14 @@ const BlogContextProvider = ({children}) => {
         const filtered = checkArray.filter((post)=>post.id!=id)
         setBlogData(filtered)
     }
+    const editData = (newEntry, editId) => {
+        const newArray = [...blogData]
+        const index = newArray.findIndex((post)=>post.id==editId)
+        newArray.splice(index, 1, newEntry)
+        setBlogData(newArray)
+    }
     return(
-        <BlogContext.Provider value={{blogData, pushData, deleteData}}>
+        <BlogContext.Provider value={{blogData, pushData, deleteData, editData}}>
             {children}
         </BlogContext.Provider>
     )

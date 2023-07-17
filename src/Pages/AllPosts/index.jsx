@@ -11,7 +11,6 @@ function AllPosts(){
     function returnToBlog(){
         navigate('/blog')
     }
-    console.log(blogData);
     return(
         <>
             <h1>All Posts</h1>

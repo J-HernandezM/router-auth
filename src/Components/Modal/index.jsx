@@ -4,11 +4,12 @@ import { useContext } from 'react'
 import { BlogContext } from '../../Context/BlogContext'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../../auth'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function Modal({type, setModalOn}){
     const auth = useAuth()
-    const {pushData, blogData, deleteData} = useContext(BlogContext)
+    const navigate = useNavigate()
+    const {pushData, blogData, editData} = useContext(BlogContext)
     const {slug} = useParams()
     const currentPost = blogData.find(post=> post.slug===slug)
 
@@ -26,9 +27,9 @@ function Modal({type, setModalOn}){
         setModalOn(false)
         if(type==='add'){
             pushData(newPost)
-        }else{
-            deleteData(currentPost.id)
-            pushData(newPost)
+        }else if (type==='edit'){
+            editData(newPost, currentPost.id)
+            navigate(`/blog/${slug}`)
         }
     }
     const handleCancel = () => {setModalOn(false)}

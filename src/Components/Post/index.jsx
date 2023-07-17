@@ -55,11 +55,10 @@ function Post(props) {
     const navigate = useNavigate()
     function returnToBlog(){
         navigate('/blog')
-        // navigate(-1)
     }
     if(!blogpost){
         return(
-            <Paper className='post'>
+            <Paper className='post post--nothing'>
                 <h2 className='post--h2'>Nothing to see here...</h2>
             </Paper>
         )

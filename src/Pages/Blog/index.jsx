@@ -8,14 +8,13 @@ import { Button } from '@mui/material';
 
 function Blog(props) {
     const {blogData} = useContext(BlogContext) 
-    
     return (
         <>
             <h1>BlogPost</h1>
             <ul className='posts--grid'>
                 {blogData.map((post, index)=>{
                     if(index<=5){
-                        return (<BlogLink key={post.slug} post={post}/>)
+                        return (<BlogLink key={post.id} post={post}/>)
                     }
                 })}
             </ul>

@@ -69,3 +69,7 @@
 .post--author::before{
     content: 'Written by: ';
 }
+.post--nothing{
+    align-items: center;
+    justify-content: center;
+}
