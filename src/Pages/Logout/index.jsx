@@ -13,7 +13,7 @@ function Logout(props) {
             <h1>Logout</h1>
             <form  className='form--logout' onSubmit={logout}>
                 <label htmlFor="name">Sure you want to Log out?</label>
-                <button className='form--btn' type='submit'> Log out </button>
+                <button className='form--btn logout' type='submit'> Log out </button>
             </form>
         </>
     );

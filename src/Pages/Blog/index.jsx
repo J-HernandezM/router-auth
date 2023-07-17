@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Blog.css'
 import { Link, Outlet } from 'react-router-dom';
-import {blogData} from '../../Data/blogData'
+import {BlogContext} from '../../Context/BlogContext'
 import { PostCard } from '../../Components/PostCard';
 import { Button } from '@mui/material';
 
 
 function Blog(props) {
+    const {
+        blogData,
+        pushData,
+        deleteData
+    } = useContext(BlogContext) 
+    
     return (
         <>
             <h1>BlogPost</h1>

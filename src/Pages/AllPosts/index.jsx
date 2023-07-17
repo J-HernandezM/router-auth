@@ -1,13 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { blogData } from "../../Data/blogData"
+import { BlogContext } from "../../Context/BlogContext";
 import { BlogLink } from "../Blog"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useContext } from "react";
 
 function AllPosts(){
+    const {
+        blogData,
+        pushData,
+        deleteData
+    } = useContext(BlogContext) 
+
     const navigate = useNavigate()
     function returnToBlog(){
         navigate('/blog')
     }
+    console.log(blogData);
     return(
         <>
             <h1>All Posts</h1>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { blogData } from '../../Data/blogData';
+import React, { useContext } from 'react';
+import { BlogContext } from '../../Context/BlogContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth';
 import { Paper } from '@mui/material';
@@ -19,7 +19,8 @@ const admins  = [{username:'juan3', role: 'admin'},{username:'juan6', role: 'adm
 const allRoles = [editors, betatests, admins]
 
 const skills = {
-    editor: <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>,
+    editor: 
+                <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>,
     author: <>
                 <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
                 <ButtonModal type={'delete'}><DeleteIcon fontSize='small' /></ButtonModal>
@@ -32,13 +33,19 @@ const skills = {
 }
 
 function Post(props) {
+    const {
+        blogData,
+        pushData,
+        deleteData
+    } = useContext(BlogContext) 
+
     const auth = useAuth()
     const {slug} = useParams()
     const blogpost = blogData.find(post=> post.slug===slug)
 
     //Autorization
     const userExistInBackend= backendRoles.find(user=>user.username===auth.user?.username)
-    const userCanDelete= auth.user?.username === blogpost.author || userExistInBackend?.role==='admin'
+    const userCanDelete= auth.user?.username === blogpost?.author || userExistInBackend?.role==='admin'
 
     //Challenge, si tenemos varios arrays con diferentes roles como renderizo las funciones de cada rol
     let currentUser
@@ -57,10 +64,10 @@ function Post(props) {
 
     return (
         <Paper className='post'>
-            <h2 className='post--h2'>{blogpost.title}</h2>
-            <p className='post--content'>{blogpost.content}</p>   
-            <p className='post--author'>{blogpost.author}</p>
-            <div className={`skills ${!userSkills?'skill1':'allskills' }`} >
+            <h2 className='post--h2'>{blogpost?.title}</h2>
+            <p className='post--content'>{blogpost?.content}</p>   
+            <p className='post--author'>{blogpost?.author}</p>
+            <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
                 <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
                 {userSkills}
             </div>

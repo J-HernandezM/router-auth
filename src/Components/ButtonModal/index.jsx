@@ -1,18 +1,32 @@
 import { Modal } from '../Modal'
-import { useState } from "react"
+import { useContext, useState } from "react"
+import {BlogContext} from '../../Context/BlogContext'
 
 function ButtonModal({children, type}){
     const [modalOn, setModalOn] = useState(false)
-    function openModal(){
-        setModalOn(true)
-    }
+    const {blogData, deleteData} = useContext(BlogContext) 
     
+    const openModal = () => {setModalOn(true)}
+    const handleClick = (event) => {
+        let parent = event.target.parentElement
+        while(parent.nodeName!='DIV'){
+            parent = parent.parentElement
+        }
+        if(type==='add'|| type==='edit'){
+            openModal()
+        }else if(type==='delete'){
+            deleteData(parent.id)
+            console.log(parent.id);
+        }
+    }
+
+    console.log('button', blogData);
     return(
         <>
-            <button onClick={openModal}>
+            <button onClick={handleClick}>
                 {children}
             </button>
-            {(modalOn && (type==='add'|| type==='edit')) && <Modal type={type} setModalOn={setModalOn}/>}
+            {modalOn && <Modal type={type} setModalOn={setModalOn}/>}
         </>
     )
 }
