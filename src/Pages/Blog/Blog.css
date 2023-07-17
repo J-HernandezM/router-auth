@@ -27,6 +27,9 @@
     margin-bottom: 4px;
 }
 .post{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
     padding: 20px 30px;
     min-width: 360px;

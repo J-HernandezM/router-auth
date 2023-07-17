@@ -1,23 +1,21 @@
 import { Modal } from '../Modal'
 import { useContext, useState } from "react"
 import {BlogContext} from '../../Context/BlogContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function ButtonModal({children, type}){
     const [modalOn, setModalOn] = useState(false)
-    const {blogData, deleteData} = useContext(BlogContext) 
     const navigate = useNavigate()
+    const {deleteData, blogData} = useContext(BlogContext)
+    const {slug} = useParams()
+    const currentPost = blogData.find(post=> post.slug===slug)
 
     const openModal = () => {setModalOn(true)}
-    const handleClick = (event) => {
-        let parent = event.target.parentElement
-        while(parent.nodeName!='DIV'){
-            parent = parent.parentElement
-        }
+    const handleClick = () => {
         if(type==='add'|| type==='edit'){
             openModal()
         }else if(type==='delete'){
-            deleteData(parent.id)
+            deleteData(currentPost.id)
             navigate('/blog')
         }
     }

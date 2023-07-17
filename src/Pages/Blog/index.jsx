@@ -19,7 +19,7 @@ function Blog(props) {
                     }
                 })}
             </ul>
-            <Button component={Link} sx={{width:'50%', marginBottom:'30px'}} variant="contained" to={`/blog/allPosts`}>Check all posts</Button>
+            <Button component={Link} sx={{width:'50%', marginBottom:'30px', maxWidth:'430px'}} variant="contained" to={`/blog/allPosts`}>Check all posts</Button>
             <Outlet />
         </>
 

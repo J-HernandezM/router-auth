@@ -66,8 +66,10 @@ function Post(props) {
     }else{
         return (
             <Paper className='post'>
-                <h2 className='post--h2'>{blogpost?.title}</h2>
-                <p className='post--content'>{blogpost?.content}</p>   
+                <div>
+                    <h2 className='post--h2'>{blogpost?.title}</h2>
+                    <p className='post--content'>{blogpost?.content}</p>
+                </div>  
                 <p className='post--author'>{blogpost?.author}</p>
                 <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
                     <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
