@@ -1,11 +1,13 @@
 import { Modal } from '../Modal'
 import { useContext, useState } from "react"
 import {BlogContext} from '../../Context/BlogContext'
+import { useNavigate } from 'react-router-dom'
 
 function ButtonModal({children, type}){
     const [modalOn, setModalOn] = useState(false)
     const {blogData, deleteData} = useContext(BlogContext) 
-    
+    const navigate = useNavigate()
+
     const openModal = () => {setModalOn(true)}
     const handleClick = (event) => {
         let parent = event.target.parentElement
@@ -16,11 +18,10 @@ function ButtonModal({children, type}){
             openModal()
         }else if(type==='delete'){
             deleteData(parent.id)
-            console.log(parent.id);
+            navigate('/blog')
         }
     }
 
-    console.log('button', blogData);
     return(
         <>
             <button onClick={handleClick}>

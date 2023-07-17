@@ -7,11 +7,7 @@ import { Button } from '@mui/material';
 
 
 function Blog(props) {
-    const {
-        blogData,
-        pushData,
-        deleteData
-    } = useContext(BlogContext) 
+    const {blogData} = useContext(BlogContext) 
     
     return (
         <>

@@ -33,11 +33,7 @@ const skills = {
 }
 
 function Post(props) {
-    const {
-        blogData,
-        pushData,
-        deleteData
-    } = useContext(BlogContext) 
+    const {blogData} = useContext(BlogContext) 
 
     const auth = useAuth()
     const {slug} = useParams()
@@ -61,18 +57,26 @@ function Post(props) {
         navigate('/blog')
         // navigate(-1)
     }
-
-    return (
-        <Paper className='post'>
-            <h2 className='post--h2'>{blogpost?.title}</h2>
-            <p className='post--content'>{blogpost?.content}</p>   
-            <p className='post--author'>{blogpost?.author}</p>
-            <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
-                <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
-                {userSkills}
-            </div>
-        </Paper>
-    );
+    if(!blogpost){
+        return(
+            <Paper className='post'>
+                <h2 className='post--h2'>Nothing to see here...</h2>
+            </Paper>
+        )
+    }else{
+        return (
+            <Paper className='post'>
+                <h2 className='post--h2'>{blogpost?.title}</h2>
+                <p className='post--content'>{blogpost?.content}</p>   
+                <p className='post--author'>{blogpost?.author}</p>
+                <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
+                    <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
+                    {userSkills}
+                </div>
+            </Paper>
+        );
+    }
+    
 }
 
 export  { Post };

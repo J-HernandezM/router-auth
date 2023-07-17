@@ -5,11 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useContext } from "react";
 
 function AllPosts(){
-    const {
-        blogData,
-        pushData,
-        deleteData
-    } = useContext(BlogContext) 
+    const {blogData} = useContext(BlogContext) 
 
     const navigate = useNavigate()
     function returnToBlog(){
