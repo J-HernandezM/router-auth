@@ -4,21 +4,27 @@ import { Link, Outlet } from 'react-router-dom';
 import {BlogContext} from '../../Context/BlogContext'
 import { PostCard } from '../../Components/PostCard';
 import { Button } from '@mui/material';
+import {FirstPost} from '../../Components/FirstPost'
+import { useAuth } from '../../auth';
 
 
 function Blog(props) {
-    const {blogData} = useContext(BlogContext) 
+    const auth = useAuth()
+    const {blogData, isEmpty} = useContext(BlogContext) 
     return (
         <>
             <h1>BlogPost</h1>
             <ul className='posts--grid'>
-                {blogData.map((post, index)=>{
+                {!isEmpty &&  blogData.map((post, index)=>{
                     if(index<=5){
                         return (<BlogLink key={post.id} post={post}/>)
                     }
-                })}
+                }) }
+                {(isEmpty && auth?.user) && <FirstPost />}
+                {(isEmpty && !auth.user) && <h2>Currently there is no posts, login to create one</h2>}
             </ul>
-            <Button component={Link} sx={{width:'50%', marginBottom:'30px', maxWidth:'430px'}} variant="contained" to={`/blog/allPosts`}>Check all posts</Button>
+            {!isEmpty && <Button component={Link} sx={{width:'50%', marginBottom:'30px', maxWidth:'430px'}} variant="contained" to={`/blog/allPosts`}>Check all posts</Button>}
+
             <Outlet />
         </>
 

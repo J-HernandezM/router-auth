@@ -13,6 +13,7 @@ import { AllPosts } from './Pages/AllPosts'
 import { BlogContextProvider } from './Context/BlogContext'
 
 function App() {
+
   return (
     <>
       <HashRouter>

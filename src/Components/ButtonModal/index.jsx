@@ -3,7 +3,7 @@ import { useContext, useState } from "react"
 import {BlogContext} from '../../Context/BlogContext'
 import { useNavigate, useParams } from 'react-router-dom'
 
-function ButtonModal({children, type}){
+function ButtonModal({children, type, styles}){
     const [modalOn, setModalOn] = useState(false)
     const navigate = useNavigate()
     const {deleteData, blogData} = useContext(BlogContext)
@@ -22,7 +22,7 @@ function ButtonModal({children, type}){
 
     return(
         <>
-            <button onClick={handleClick}>
+            <button className={styles?styles:''} onClick={handleClick}>
                 {children}
             </button>
             {modalOn && <Modal type={type} setModalOn={setModalOn}/>}
