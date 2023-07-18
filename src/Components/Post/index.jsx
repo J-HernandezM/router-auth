@@ -32,21 +32,15 @@ function Post(props) {
     const blogpost = blogData.find(post=> post.slug===slug)
     
     //Challenge, si tenemos varios arrays con diferentes roles como renderizo las funciones de cada rol
-    let authorizedUser
-    authorizations.some((roleArray)=>{
-        authorizedUser = roleArray.find(user=>user.username===auth.user?.username)
-        if(authorizedUser){return true}
-    })
-    console.log(auth.user);
     let userSkills
-    if(authorizedUser){
-        userSkills = skills[authorizedUser?.role]
+    if(auth.user?.role){
+        userSkills = skills[auth.user.role]
     }else{
         //Si no es el autor quitale los botones de autor. Si es el autor ponselos
         const isAuthor= auth.user?.username === blogpost?.author
         if(!isAuthor && !!auth.user){
             skills.author = <></>
-        }else if (!!auth.user && isAuthor){
+        }else if (isAuthor && !!auth.user ){
             skills.author =
             <>
                 <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
@@ -55,7 +49,30 @@ function Post(props) {
             userSkills = skills.author
         }
     }
-    console.log(userSkills);
+    
+    
+/*     let authorizedUser
+    authorizations.some((roleArray)=>{
+        authorizedUser = roleArray.find(user=>user.username===auth.user?.username)
+        if(authorizedUser){return true}
+    })
+    
+    if(authorizedUser){
+        userSkills = skills[authorizedUser?.role]
+    }else{
+        //Si no es el autor quitale los botones de autor. Si es el autor ponselos
+        const isAuthor= auth.user?.username === blogpost?.author
+        if(!isAuthor && !!auth.user){
+            skills.author = <></>
+        }else if (isAuthor && !!auth.user ){
+            skills.author =
+            <>
+                <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
+                <ButtonModal type={'delete'}><DeleteIcon fontSize='small' /></ButtonModal>
+            </>
+            userSkills = skills.author
+        }
+    } */
     
     //Hook useNavigate
     const navigate = useNavigate()

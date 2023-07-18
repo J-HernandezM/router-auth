@@ -6,14 +6,18 @@ import { authorizations } from '../../Server';
 function Login(props) {
     const [userData, setUser] = React.useState()
     const auth = useAuth()
-    let roleD
-    authorizations.some((roleArray)=>{
-        const currentUser = roleArray.find(backendUser=>
-            backendUser.username===userData?.username)
-        roleD = currentUser?.role
-        if(currentUser){return(true)}
-    })
-    console.log(roleD)
+    
+    const handleLoginBtn = (event) => {
+        let roleD
+        let usernameD = event.target.form[0].value
+        authorizations.some((roleArray)=>{
+            const currentUser = roleArray.find(backendUser=>
+                backendUser.username===usernameD)
+            roleD = currentUser?.role
+            if(currentUser){return(true)}
+        })
+        setUser({...userData, username: usernameD, role: roleD})
+    }
 
     function login(event){
         event.preventDefault()
@@ -25,11 +29,7 @@ function Login(props) {
             <form className='form--login' onSubmit={login}>
                 <label htmlFor="name">Username</label>
                 <input type="name" name='name' className='loginInput' id='name'/>
-                <button className='form--btn' type='submit' onClick={
-                    event=>{
-                        setUser({...userData, username: event.target.form[0].value, role: roleD})
-                    }
-                }> Login </button>
+                <button className='form--btn' type='submit' onClick={handleLoginBtn}> Login </button>
             </form>
         </>
     );
