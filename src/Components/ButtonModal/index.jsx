@@ -4,10 +4,11 @@ import {BlogContext} from '../../Context/BlogContext'
 import { useNavigate, useParams } from 'react-router-dom'
 
 function ButtonModal({children, type, styles}){
+    const {deleteData, blogData} = useContext(BlogContext)
     const [modalOn, setModalOn] = useState(false)
     const navigate = useNavigate()
-    const {deleteData, blogData} = useContext(BlogContext)
     const {slug} = useParams()
+    
     const currentPost = blogData.find(post=> post.slug===slug)
 
     const openModal = () => {setModalOn(true)}

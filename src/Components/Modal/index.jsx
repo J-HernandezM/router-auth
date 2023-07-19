@@ -15,22 +15,28 @@ function Modal({type, setModalOn}){
 
     const handleConfirm = (event) => {
         const title = event.target.form[0].value
-        const content = event.target.form[2].value
-        const slug = title.toLowerCase().replaceAll(' ', '-')
-        const newPost = {
-            id: uuidv4(),
-            title: title,
-            slug: slug,
-            content: content,
-            author: auth.user?.username
+        if(!title){
+            alert('Please use a title')
+        }else{
+            const content = event.target.form[2].value
+            const id = uuidv4().slice(0, 4)
+            const slug = `${title.toLowerCase().replaceAll(' ', '-')}:${id}`
+            const newPost = {
+                id: id,
+                title: title,
+                slug: slug,
+                content: content,
+                author: auth.user?.username
+            }
+            setModalOn(false)
+            if(type==='add'){
+                pushData(newPost)
+            }else if (type==='edit'){
+                editData(newPost, currentPost.id)
+                navigate(`/blog/${slug}`)
+            }
         }
-        setModalOn(false)
-        if(type==='add'){
-            pushData(newPost)
-        }else if (type==='edit'){
-            editData(newPost, currentPost.id)
-            navigate(`/blog/${slug}`)
-        }
+        
     }
     const handleCancel = () => {setModalOn(false)}
 

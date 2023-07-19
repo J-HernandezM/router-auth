@@ -36,7 +36,11 @@
     max-width: 900px;
     min-height: 500px;
     width: 80%;
-
+}
+.post--up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .skills{
     display: flex;
@@ -59,9 +63,11 @@
     display: inline-block;
     max-width: 320px;
 }
-.post--content{
-    text-align: start;
-    margin-bottom: 60px;
+.post--up md-block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 .post--author{
     font-size: 20px;

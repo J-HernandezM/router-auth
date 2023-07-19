@@ -8,7 +8,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ButtonModal } from '../ButtonModal';
-import { authorizations } from '../../Server';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+
 
 const skills = {
     editor: 
@@ -63,9 +64,11 @@ function Post(props) {
     }else{
         return (
             <Paper className='post'>
-                <div>
-                    <h2 className='post--h2'>{blogpost?.title}</h2>
-                    <p className='post--content'>{blogpost?.content}</p>
+                <div className='post--up'>
+                    <h2 className='post--h2'><>{blogpost?.title}</></h2>
+                    <ReactMarkdown className='post--content'>
+                        {blogpost?.content}
+                    </ReactMarkdown>
                 </div>  
                 <p className='post--author'>{blogpost?.author}</p>
                 <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
