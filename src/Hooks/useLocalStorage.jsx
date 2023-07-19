@@ -1,55 +1,45 @@
 import { useEffect, useState } from "react"
 
-const defaultData = [
-    {
-        id:1,
-        title: 'Que es React',
-        slug: 'que-es-react',
-        content: 'react es una chimba',
-        author: 'mari'
-    },
-    {
-        id:2,
-        title: 'Que es Vite',
-        slug: 'que-es-vite',
-        content: 'Vite es una chimba',
-        author: 'juanchocarrancho'
-    },
-    {
-        id:3,
-        title: 'Que es JavaScript',
-        slug: 'que-es-javascript',
-        content: 'JavaScript es una chimba',
-        author: 'wilson'
-    },
-    {
-        id:4,
-        title: 'Que es La vida',
-        slug: 'que-es-la-vida',
-        content: 'La vida es una chimba',
-        author: 'juan'
-    }
-]
-
-function useLocalStorage () {
+function useLocalStorage ({defaultData, key}) {
     const [isEmpty, setEmpty] = useState()
-    const [blogData, setBlogData] = useState([...defaultData])
+    const [blogData, setBlogData] = useState([])
+    const [usersLogged, setUsersLogged] = useState([])
+    useEffect(()=>{
+        const storage = localStorage.getItem(key)
+        if(!storage){
+            localStorage.setItem(key, JSON.stringify(defaultData))
+            if(key==='PUBLISHED_POST'){setBlogData(defaultData)}
+            else if(key==='LOGGED_USERS'){setUsersLogged(defaultData)}
+        }else{
+            if(key==='PUBLISHED_POST'){setBlogData(JSON.parse(storage))}
+            else if(key==='LOGGED_USERS'){setUsersLogged(JSON.parse(storage))}
+            
+        }
+    },[])
 
     useEffect(()=>{
         if(blogData.length===0){
-            const storage = localStorage.getItem('PUBLISHED_POST')
-            storage?localStorage.removeItem('PUBLISHED_POST'):undefined
             setEmpty(true)
         }else{
             setEmpty(false)
-            localStorage.setItem('PUBLISHED_POST', JSON.stringify(blogData))
         }
-    },[blogData])
+    }, [blogData])
+
+    const saveBlogData = (newBlogData) => {
+        localStorage.setItem('PUBLISHED_POST', JSON.stringify(newBlogData))
+        setBlogData(newBlogData)
+    }
+    const saveUsersLogged = (newUserLogged) => {
+        localStorage.setItem('LOGGED_USERS', JSON.stringify(newUserLogged))
+        setUsersLogged(newUserLogged)
+    }
     
     return ({
         blogData,
         isEmpty,
-        setBlogData,
+        usersLogged,
+        saveBlogData,
+        saveUsersLogged
     })
 }
 

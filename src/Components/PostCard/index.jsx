@@ -14,14 +14,15 @@ const cardInside={
 }
 
 function PostCard({children, post}){
+    const splicedTitle = post.title?.slice(0, 18)
     const splicedPost = post.content?.slice(0, 20)
     const cardText = splicedPost + '...'
-
+    const cardTitle = splicedTitle + '...'
 
     return (
         <StyledCard elevation={2}>
             <CardContent sx={cardInside}>
-                <p className="post--title">{post.title}</p>
+                <p className="post--title">{cardTitle}</p>
                 {cardText}
             </CardContent>
             <CardActions sx={cardInside}>

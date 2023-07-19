@@ -2,10 +2,12 @@ import React from 'react';
 import './Login.css'
 import { useAuth } from '../../auth.jsx';
 import { authorizations } from '../../Server';
+import { useLocalStorage } from '../../Hooks/useLocalStorage';
 
 function Login(props) {
     const [userData, setUser] = React.useState()
     const auth = useAuth()
+    const {usersLogged, saveUsersLogged} = useLocalStorage({defaultData: [], key: 'LOGGED_USERS'})
     
     const handleLoginBtn = (event) => {
         let roleD
@@ -17,6 +19,7 @@ function Login(props) {
             if(currentUser){return(true)}
         })
         setUser({...userData, username: usernameD, role: roleD})
+        saveUsersLogged([...usersLogged, {username: usernameD, role: roleD}])
     }
 
     function login(event){

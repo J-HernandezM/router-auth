@@ -26,7 +26,6 @@ const skills = {
 
 function Post(props) {
     const {blogData} = useContext(BlogContext) 
-
     const auth = useAuth()
     const {slug} = useParams()
     const blogpost = blogData.find(post=> post.slug===slug)
@@ -49,30 +48,6 @@ function Post(props) {
             userSkills = skills.author
         }
     }
-    
-    
-/*     let authorizedUser
-    authorizations.some((roleArray)=>{
-        authorizedUser = roleArray.find(user=>user.username===auth.user?.username)
-        if(authorizedUser){return true}
-    })
-    
-    if(authorizedUser){
-        userSkills = skills[authorizedUser?.role]
-    }else{
-        //Si no es el autor quitale los botones de autor. Si es el autor ponselos
-        const isAuthor= auth.user?.username === blogpost?.author
-        if(!isAuthor && !!auth.user){
-            skills.author = <></>
-        }else if (isAuthor && !!auth.user ){
-            skills.author =
-            <>
-                <ButtonModal type={'edit'}><EditIcon fontSize='small' /></ButtonModal>
-                <ButtonModal type={'delete'}><DeleteIcon fontSize='small' /></ButtonModal>
-            </>
-            userSkills = skills.author
-        }
-    } */
     
     //Hook useNavigate
     const navigate = useNavigate()

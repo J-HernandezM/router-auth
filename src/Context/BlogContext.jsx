@@ -4,22 +4,22 @@ import { useLocalStorage } from "../Hooks/useLocalStorage"
 const BlogContext = createContext()
 
 const BlogContextProvider = ({children}) => {
-    const {blogData, setBlogData, isEmpty} = useLocalStorage()
+    const {blogData, saveBlogData, isEmpty} = useLocalStorage({defaultData, key: 'PUBLISHED_POST'})
     const pushData = (newEntry) => {
         const newArray = [...blogData]
         newArray.push(newEntry)
-        setBlogData(newArray)
+        saveBlogData(newArray)
     }
     const deleteData = (id) => {
         const checkArray = [...blogData]
         const filtered = checkArray.filter((post)=>post.id!=id)
-        setBlogData(filtered)
+        saveBlogData(filtered)
     }
     const editData = (newEntry, editId) => {
         const newArray = [...blogData]
         const index = newArray.findIndex((post)=>post.id==editId)
         newArray.splice(index, 1, newEntry)
-        setBlogData(newArray)
+        saveBlogData(newArray)
     }
     return(
         <BlogContext.Provider value={{blogData, isEmpty, pushData, deleteData, editData}}>
@@ -27,6 +27,37 @@ const BlogContextProvider = ({children}) => {
         </BlogContext.Provider>
     )
 }
+
+const defaultData = [
+    {
+        id:1,
+        title: 'Que es React',
+        slug: 'que-es-react',
+        content: 'react es una chimba',
+        author: 'mari'
+    },
+    {
+        id:2,
+        title: 'Que es Vite',
+        slug: 'que-es-vite',
+        content: 'Vite es una chimba',
+        author: 'juanchocarrancho'
+    },
+    {
+        id:3,
+        title: 'Que es JavaScript',
+        slug: 'que-es-javascript',
+        content: 'JavaScript es una chimba',
+        author: 'wilson'
+    },
+    {
+        id:4,
+        title: 'Que es La vida',
+        slug: 'que-es-la-vida',
+        content: 'La vida es una chimba',
+        author: 'juan'
+    }
+]
 
 
 export {BlogContextProvider, BlogContext}
