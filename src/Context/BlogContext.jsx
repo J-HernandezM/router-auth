@@ -56,13 +56,6 @@ const defaultData = [
         slug: 'que-es-la-vida',
         content: 'La vida es una chimba',
         author: 'juan'
-    },
-    {
-        id: 5,
-        title: 'Markdown',
-        slug: 'markdown',
-        content: `markdown`,
-        author: 'markdown'
     }
 ]
 

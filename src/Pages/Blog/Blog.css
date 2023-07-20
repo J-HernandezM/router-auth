@@ -86,3 +86,10 @@
     font-size: 16px;
     font-weight: 600;
 }
+.FirstPost--noempty{
+    width:50%;
+    height: 40px;
+    max-width: 430px;
+    font-size: 16px;
+    font-weight: 600;
+}
