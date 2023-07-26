@@ -21,7 +21,7 @@ function HomePage(props) {
             <HomePaper>
                 <p>This is a test blog with React Router, aplying authorization and authentication</p>
                 <p>If you want to try all the features login as 'admin', you can also login as 'editor'</p>
-                <p>Made by: J-HernandezM</p>
+                <p>Made by: J-HernandezM :&#41;</p>
             </HomePaper>
         </>
     );
