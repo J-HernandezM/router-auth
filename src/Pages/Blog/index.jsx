@@ -27,7 +27,7 @@ function Blog(props) {
                 </div>}
                 {(isEmpty && !auth.user) && <h2>Currently there is no posts, login to create one</h2>}
             </ul>
-            {(!isEmpty && auth?.user) && <FirstPost styles='FirstPost--noempty'/> }
+            {(!isEmpty) && <FirstPost styles='FirstPost--noempty'/> }
             {!isEmpty && 
                     <Button component={Link} sx={{width:'50%', marginBottom:'30px', maxWidth:'430px', marginTop:'20px'}} variant="contained" to={`/blog/allPosts`}>Check all posts</Button>
             }

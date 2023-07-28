@@ -3,11 +3,16 @@ import './Login.css'
 import { useAuth } from '../../auth.jsx';
 import { authorizations } from '../../Server';
 import { useLocalStorage } from '../../Hooks/useLocalStorage';
+import { useLocation } from 'react-router-dom';
 
 function Login(props) {
     const [userData, setUser] = React.useState()
     const auth = useAuth()
     const {usersLogged, saveUsersLogged} = useLocalStorage({defaultData: [], key: 'LOGGED_USERS'})
+    const location = useLocation()
+    console.log(location);
+    let from = location.state?.pathname || '/profile'
+
     
     const handleLoginBtn = (event) => {
         let roleD
@@ -24,7 +29,7 @@ function Login(props) {
 
     function login(event){
         event.preventDefault()
-        auth.login(userData);
+        auth.login(userData, from);
     }
     return (
         <>

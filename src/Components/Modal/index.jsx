@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { BlogContext } from '../../Context/BlogContext'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../../auth'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 function Modal({type, setModalOn}){
     const auth = useAuth()
@@ -12,6 +12,7 @@ function Modal({type, setModalOn}){
     const {pushData, blogData, editData} = useContext(BlogContext)
     const {slug} = useParams()
     const currentPost = blogData.find(post=> post.slug===slug)
+    const location = useLocation()
 
     const handleConfirm = (event) => {
         const title = event.target.form[0].value
@@ -39,29 +40,47 @@ function Modal({type, setModalOn}){
         
     }
     const handleCancel = () => {setModalOn(false)}
+    const handleNotLogged = () => {navigate(
+        '/login',
+        {
+            state: location
+        }
+    )}
 
     return(
         <div className="modal--bg">
+            
             <form className="modal--container">
-                <h2 className='modal--title'>{type==='add'?'Create a new Post':'Edit the post'}</h2>
-                <TextField 
-                    sx={{width:'100%'}} 
-                    label="Title" 
-                    variant="outlined" 
-                    defaultValue={type==='edit'?currentPost.title:null}
-                />
-                <TextField
-                    label="Content"
-                    multiline
-                    maxRows={13}
-                    placeholder="You can use Markdown!"
-                    sx={{width:'100%'}}
-                    defaultValue={type==='edit'?currentPost.content:null}
-                />
-                <div className="modal--buttons">
-                    <button type='button' className='modal--cancel modal--btn' onClick={handleCancel}>Cancel</button>
-                    <button type='button' className='modal--action modal--btn' onClick={handleConfirm}>Confirm</button>
-                </div>
+                {!auth.user && 
+                    <>
+                        <h2>Please login</h2>
+                        <button type='button' onClick={handleNotLogged}></button>
+                    </>
+                }
+                {auth.user && 
+                    <>
+                        <h2 className='modal--title'>{type==='add'?'Create a new Post':'Edit the post'}</h2>
+                        <TextField 
+                            sx={{width:'100%'}} 
+                            label="Title" 
+                            variant="outlined" 
+                            defaultValue={type==='edit'?currentPost.title:null}
+                        />
+                        <TextField
+                            label="Content"
+                            multiline
+                            maxRows={13}
+                            placeholder="You can use Markdown!"
+                            sx={{width:'100%'}}
+                            defaultValue={type==='edit'?currentPost.content:null}
+                        />
+                        <div className="modal--buttons">
+                            <button type='button' className='modal--cancel modal--btn' onClick={handleCancel}>Cancel</button>
+                            <button type='button' className='modal--action modal--btn' onClick={handleConfirm}>Confirm</button>
+                        </div>
+                    </>
+                }
+                
             </form>
         </div>
     )
