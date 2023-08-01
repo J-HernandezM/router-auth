@@ -3,10 +3,39 @@ import { NavLink } from 'react-router-dom';
 import './Menu.css'
 import { useAuth } from '../../auth';
 
-function Menu(props) {
+function Menu({userData}) {
+    const routes = [{
+        id:1,
+        to:'/',
+        text:'homepage',
+        private: false
+    },
+    {
+        id:2,
+        to:'/blog',
+        text:'blog',
+        private: false
+    },
+    {
+        id:3,
+        to:`/profile${userData?`/${userData?.slug}`:''}`,
+        text:'profile',
+        private: true
+    },
+    {
+        id:4,
+        to:'/login',
+        text:'login',
+        private: false
+    },
+    {
+        id:5,
+        to:'/logout',
+        text:'logout',
+        private: true
+    }]
 
     const auth = useAuth()
-
     return (
         <nav>
             <ul>
@@ -32,36 +61,7 @@ function Menu(props) {
     );
 }
 
-const routes = [{
-    id:1,
-    to:'/',
-    text:'homepage',
-    private: false
-},
-{
-    id:2,
-    to:'/blog',
-    text:'blog',
-    private: false
-},
-{
-    id:3,
-    to:'/profile',
-    text:'profile',
-    private: true
-},
-{
-    id:4,
-    to:'/login',
-    text:'login',
-    private: false
-},
-{
-    id:5,
-    to:'/logout',
-    text:'logout',
-    private: true
-}]
+
 
 
 export { Menu };

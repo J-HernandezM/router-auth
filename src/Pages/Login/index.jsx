@@ -6,30 +6,31 @@ import { useLocalStorage } from '../../Hooks/useLocalStorage';
 import { useLocation } from 'react-router-dom';
 
 function Login(props) {
-    const [userData, setUser] = React.useState()
     const auth = useAuth()
     const {usersLogged, saveUsersLogged} = useLocalStorage({defaultData: [], key: 'LOGGED_USERS'})
     const location = useLocation()
-    console.log(location);
-    let from = location.state?.pathname || '/profile'
-
+    
     
     const handleLoginBtn = (event) => {
-        let roleD
-        let usernameD = event.target.form[0].value
+        let role
+        let username = event.target.form[0].value
+        const slug = `${username.toLowerCase().replaceAll(' ', '-')}`
         authorizations.some((roleArray)=>{
             const currentUser = roleArray.find(backendUser=>
-                backendUser.username===usernameD)
-            roleD = currentUser?.role
+                backendUser.username===username)
+            role = currentUser?.role
             if(currentUser){return(true)}
         })
-        setUser({...userData, username: usernameD, role: roleD})
-        saveUsersLogged([...usersLogged, {username: usernameD, role: roleD}])
+        props.setUser({...props.userData, username, role, slug})
+        saveUsersLogged([...usersLogged, {username, role, slug}])
     }
 
     function login(event){
         event.preventDefault()
-        auth.login(userData, from);
+        let username = event.target[0].value
+        const slug = `${username.toLowerCase().replaceAll(' ', '-')}`
+        let from = location.state?.pathname || `/profile/${slug}`
+        auth.login(props.userData, from);
     }
     return (
         <>

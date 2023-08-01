@@ -1,0 +1,21 @@
+.userProfiles{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 30px;
+    min-width: 360px;
+    max-width: 900px;
+    min-height: 500px;
+    width: 80%;
+}
+.userProfiles--nothing{
+    align-items: center;
+    justify-content: center;
+}
+.emptyText{
+    font-size:40px;
+    line-height: 35px;
+    display: inline-block;
+    max-width: 320px;
+}
