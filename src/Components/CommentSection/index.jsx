@@ -1,27 +1,25 @@
-import { Paper, TextField } from '@mui/material';
+import { Paper } from '@mui/material';
 import { BlogContext } from '../../Context/BlogContext';
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { InputBase } from '@mui/material';
+import { useAuth } from '../../auth'
+import { v4 as uuidv4 } from 'uuid'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './CommentSection.css'
 import styled from '@emotion/styled';
 
 const CommentSection = ({slug}) => {
-    const {blogData, addComment, editComment, deleteComment} = useContext(BlogContext) 
+    const auth = useAuth()
+    const { blogData } = useContext(BlogContext) 
     const blogpost = blogData.find(post=> post.slug===slug)
-    console.log(blogpost);
-
-    const handleAdd = (event) => {
-        console.log(event)
-        // addComment(blogpost)
-    }
+    const commentInfo = {blogpost, auth}
 
     return (
         <Paper className='comments'>
-                <NewComment />
+                <NewComment commentInfo={commentInfo} />
                 <div className='comments--box'>
-                    {blogpost.comments.map((comment, index)=><Comment comment={comment} key={index}></Comment>
+                    {blogpost.comments.map((comment, index)=><Comment commentInfo={commentInfo} comment={comment} key={index}></Comment>
                     )}
                 </div> 
         </Paper>
@@ -45,26 +43,51 @@ const NewCommentForm = styled.form`
     margin-bottom: 20px;
 `
 
-const NewComment = () => {
+const NewComment = ({commentInfo}) => {
+    const { blogpost, auth } = commentInfo
+    const { addComment } = useContext(BlogContext)
+    const [commentContent, setCommentContent] = useState()
+
+    const handleAdd = (event) => {
+        const content = event.target.form[0].value
+        const author = auth.user?.username
+        const likes = 1
+        const id = uuidv4()
+        const date = '01/01/23'
+        const newComment = {
+            content, author, likes, id, date
+        }
+        addComment(blogpost, newComment)
+        event.target.form[0].value = ''
+        //para quitar el focus
+        event.target.blur()
+    }
+
     return(
-        <NewCommentForm className="comments--area">
+        <NewCommentForm className="comments--area" onSubmit={(event)=>{event.preventDefault}}>
             <StyledInputBase 
                 multiline
                 maxRows={13}
                 placeholder="Add a comment..."
-                inputProps={{ 'aria-label': 'search google maps' }}
+                onKeyDown={(event)=>{if(event.key=='Enter'){handleAdd(event)}}}
             />
-            <button type='button' className='comment--confirm'>Confirm</button>
+            <button type='submit' onClick={handleAdd} className='comment--confirm'>Confirm</button>
         </NewCommentForm>
     )
 }
 
-const Comment = ({comment}) => {
-    const handleEdit = () => {
-
+const Comment = ({comment, commentInfo}) => {
+    const { blogpost, auth } = commentInfo
+    const { editComment, deleteComment } = useContext(BlogContext)
+    const handleEdit = (event) => {
     }
-    const handleDelete = () => {
-
+    const handleDelete = (event) => {
+        let currentNode = event.target
+        while(currentNode.nodeName!='BUTTON'){
+            currentNode=currentNode.parentElement
+        }
+        const id = currentNode.dataset.id
+        deleteComment(blogpost, id)
     }
     return(
         <div className='comment'>
@@ -72,8 +95,8 @@ const Comment = ({comment}) => {
                 <p className='comment--author'>{comment.author}</p>
                 <div className="comment--buttons-box">
                     <p className='comment--likes comment--btn'>{comment.likes}</p>
-                    <button type='button' className='comment--btn'><EditIcon fontSize='small' /></button>
-                    <button type='button' className='comment--btn'><DeleteIcon fontSize='small' /></button>
+                    <button onClick={handleEdit} data-id={comment.id} type='button' className='comment--btn'><EditIcon fontSize='small' /></button>
+                    <button onClick={handleDelete} data-id={comment.id} type='button' className='comment--btn'><DeleteIcon fontSize='small' /></button>
                 </div>
             </div>
             <p className='comment--content'>{comment.content}</p>

@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { BlogContext } from '../../Context/BlogContext'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../../auth'
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 function Modal({type, setModalOn}){
     const auth = useAuth()
@@ -27,7 +27,8 @@ function Modal({type, setModalOn}){
                 title: title,
                 slug: slug,
                 content: content,
-                author: auth.user?.username
+                author: auth.user?.username,
+                comments:[],
             }
             setModalOn(false)
             if(type==='add'){

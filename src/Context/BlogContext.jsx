@@ -5,6 +5,8 @@ const BlogContext = createContext()
 
 const BlogContextProvider = ({children}) => {
     const {blogData, saveBlogData, isEmpty} = useLocalStorage({defaultData, key: 'PUBLISHED_POST'})
+    
+    
     const pushData = (newEntry) => {
         const newArray = [...blogData]
         newArray.push(newEntry)
@@ -23,25 +25,25 @@ const BlogContextProvider = ({children}) => {
     }
     const addComment = (post, newComment) => {
         const newArray = [...blogData]
-        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        const postIndex = newArray.findIndex((backendPost)=>backendPost.id==post.id)
         post.comments.push(newComment)
-        newArray.splice(index, 1, post)
+        newArray.splice(postIndex, 1, post)
         saveBlogData(newArray)
     }
     const editComment = (post, newComment, oldCommentId) => {
         const newArray = [...blogData]
-        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        const postIndex = newArray.findIndex((backendPost)=>backendPost.id==post.id)
         const commentIndex = post.comments.findIndex((comment)=>comment.id==oldCommentId)
         post.comments.splice(commentIndex, 1, newComment)
-        newArray.splice(index, 1, post)
+        newArray.splice(postIndex, 1, post)
         saveBlogData(newArray)
     }
     const deleteComment = (post, oldCommentId) => {
         const newArray = [...blogData]
-        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        const postIndex = newArray.findIndex((backendPost)=>backendPost.id==post.id)
         const filteredComments = post.comments.filter((comment)=>comment.id!=oldCommentId)
-        post.comment=filteredComments
-        newArray.splice(index, 1, post)
+        post.comments=filteredComments
+        newArray.splice(postIndex, 1, post)
         saveBlogData(newArray)
     }
     return(
