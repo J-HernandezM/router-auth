@@ -39,6 +39,7 @@ const NewCommentForm = styled.form`
     background-color:#242424;
     border-radius: 4px;
     margin-bottom: 20px;
+    padding-right:10px;
 `
 
 const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
@@ -70,7 +71,7 @@ const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
     }
 
     return(
-        <NewCommentForm className={`comments--area ${editMode?'comments--editMode':''}`} onSubmit={(event)=>{event.preventDefault}}>
+        <NewCommentForm className={editMode?'comments--editMode':''} onSubmit={(event)=>{event.preventDefault}}>
             <StyledInputBase 
                 multiline
                 maxRows={13}

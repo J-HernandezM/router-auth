@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Card, CardActions, CardContent } from "@mui/material"
 
 const StyledCard = styled(Card)(({theme})=>({
-    height:'100px',
+    minHeight:'100px',
     width:'100%',
     display:'flex',
     flexDirection:'column',

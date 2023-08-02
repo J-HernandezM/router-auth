@@ -23,6 +23,7 @@ const BlogContextProvider = ({children}) => {
         newArray.splice(index, 1, newEntry)
         saveBlogData(newArray)
     }
+    //Convertir estos tres metodos en uno solo...
     const addComment = (post, newComment) => {
         const newArray = [...blogData]
         const postIndex = newArray.findIndex((backendPost)=>backendPost.id==post.id)
