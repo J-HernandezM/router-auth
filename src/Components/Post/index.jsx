@@ -5,10 +5,11 @@ import { useAuth } from '../../auth';
 import { Paper } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ButtonModal } from '../ButtonModal';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import CommentSection from '../CommentSection';
 
 
 const skills = {
@@ -63,19 +64,22 @@ function Post(props) {
         )
     }else{
         return (
-            <Paper className='post'>
-                <div className='post--up'>
-                    <h2 className='post--h2'><>{blogpost?.title}</></h2>
-                    <ReactMarkdown className='post--content'>
-                        {blogpost?.content}
-                    </ReactMarkdown>
-                </div>  
-                <p className='post--author'>{blogpost?.author}</p>
-                <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
-                    <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
-                    {userSkills}
-                </div>
-            </Paper>
+            <>
+                <Paper className='post'>
+                    <div className='post--up'>
+                        <h2 className='post--h2'><>{blogpost?.title}</></h2>
+                        <ReactMarkdown className='post--content'>
+                            {blogpost?.content}
+                        </ReactMarkdown>
+                    </div>  
+                    <p className='post--author'>{blogpost?.author}</p>
+                    <div className={`skills ${!userSkills?'skill1':'allskills' }`} id={blogpost?.id}>
+                        <button onClick={returnToBlog}><ArrowBackIcon fontSize='small' /></button>
+                        {userSkills}
+                    </div>
+                </Paper>
+                <CommentSection slug={slug}/>
+            </>
         );
     }
     

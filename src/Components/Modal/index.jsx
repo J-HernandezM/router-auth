@@ -53,8 +53,8 @@ function Modal({type, setModalOn}){
             <form className="modal--container">
                 {!auth.user && 
                     <>
-                        <h2>Please login</h2>
-                        <button type='button' onClick={handleNotLogged}></button>
+                        <h2 className='modal--title'>You need to be logged</h2>
+                        <button type='button' className='modal--btn' onClick={handleNotLogged}>Login</button>
                     </>
                 }
                 {auth.user && 

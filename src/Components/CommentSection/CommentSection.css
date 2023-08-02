@@ -1,0 +1,70 @@
+.comments{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 20px;
+    padding: 20px 30px;
+    min-width: 360px;
+    max-width: 900px;
+    width: 80%;
+}
+.comment--confirm{
+    width: 20%;
+    height: 35px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    background-color: transparent;
+    transform: scale(1);
+    font-size: 14px;
+    transition: transform .3s ease-in-out;
+}
+.comment--confirm:hover{
+    border: 1px transparent solid;
+    transform: scale(1.1);
+}
+.comment{
+    background-color: #242424;
+    margin-bottom: 10px;
+    padding: 10px 15px 10px 15px;
+}
+.comment--header{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.comment--author{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: start;
+}
+.comment--author::before{
+    content: '@';
+}
+.comment--buttons-box{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+.comment--content{
+    text-align: start;
+    font-size: 15.5px;
+    line-height: 18px;
+}
+.comment--btn{
+    transform: scale(1); 
+    transition: transform .3s ease-in-out;
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+}
+.comment--btn:hover{
+    border: 1px transparent solid;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.comment--btn:focus{
+    outline: 1px transparent solid;
+    color: #f7f7f7;
+}

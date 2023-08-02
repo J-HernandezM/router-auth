@@ -15,6 +15,7 @@ import UserProfile from './Components/UserProfile'
 
 function App() {
   const [userData, setUser] = useState()
+  console.clear() // Quitar esto
   return (
     <>
       <HashRouter>

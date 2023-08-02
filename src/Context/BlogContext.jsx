@@ -21,8 +21,31 @@ const BlogContextProvider = ({children}) => {
         newArray.splice(index, 1, newEntry)
         saveBlogData(newArray)
     }
+    const addComment = (post, newComment) => {
+        const newArray = [...blogData]
+        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        post.comments.push(newComment)
+        newArray.splice(index, 1, post)
+        saveBlogData(newArray)
+    }
+    const editComment = (post, newComment, oldCommentId) => {
+        const newArray = [...blogData]
+        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        const commentIndex = post.comments.findIndex((comment)=>comment.id==oldCommentId)
+        post.comments.splice(commentIndex, 1, newComment)
+        newArray.splice(index, 1, post)
+        saveBlogData(newArray)
+    }
+    const deleteComment = (post, oldCommentId) => {
+        const newArray = [...blogData]
+        const index = newArray.findIndex((backendPost)=>backendPost.id==post.id)
+        const filteredComments = post.comments.filter((comment)=>comment.id!=oldCommentId)
+        post.comment=filteredComments
+        newArray.splice(index, 1, post)
+        saveBlogData(newArray)
+    }
     return(
-        <BlogContext.Provider value={{blogData, isEmpty, pushData, deleteData, editData}}>
+        <BlogContext.Provider value={{blogData, isEmpty, pushData, deleteData, editData, addComment, editComment, deleteComment}}>
             {children}
         </BlogContext.Provider>
     )
@@ -34,28 +57,63 @@ const defaultData = [
         title: 'Que es React',
         slug: 'que-es-react',
         content: 'react es una chimba',
-        author: 'mari'
+        author: 'mari',
+        comments: [{
+            id: 1,
+            author: 'juan',
+            content: 'Qui tempor labore anim Lorem officia aliqua sunt. Anim dolor ea dolor veniam dolore duis adipisicing sint officia sunt ullamco sit culpa occaecat. Irure dolore ex ipsum officia non sint commodo ullamco mollit tempor minim fugiat adipisicing sunt. Duis non anim veniam excepteur est ut enim duis occaecat deserunt excepteur magna.',
+            likes: 1,
+            date: '01/01/23',
+        },
+        {
+            id: 5,
+            author: 'pedro',
+            content: 'Que dices loca',
+            likes: 1,
+            date: '01/01/23',
+        }]
     },
     {
         id:2,
         title: 'Que es Vite',
         slug: 'que-es-vite',
         content: 'Vite es una chimba',
-        author: 'juanchocarrancho'
+        author: 'juanchocarrancho',
+        comments: [{
+            id: 2,
+            author: 'mari',
+            content: 'Que nota de Post',
+            likes: 2,
+            date: '01/01/23',
+        }]
     },
     {
         id:3,
         title: 'Que es JavaScript',
         slug: 'que-es-javascript',
         content: 'JavaScript es una chimba',
-        author: 'wilson'
+        author: 'wilson',
+        comments: [{
+            id: 3,
+            author: 'hater1',
+            content: 'Este post es basura',
+            likes: 3,
+            date: '01/01/23',
+        }]
     },
     {
         id:4,
         title: 'Que es La vida',
         slug: 'que-es-la-vida',
         content: 'La vida es una chimba',
-        author: 'juan'
+        author: 'juan',
+        comments: [{
+            id: 4,
+            author: 'hater2',
+            content: 'La vida es una mierda',
+            likes: 3,
+            date: '01/01/23',
+        }]
     }
 ]
 

@@ -6,8 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 function ButtonModal({children, type, styles}){
     const {deleteData, blogData} = useContext(BlogContext)
     const [modalOn, setModalOn] = useState(false)
-    const navigate = useNavigate()
     const {slug} = useParams()
+    const navigate = useNavigate()
     
     const currentPost = blogData.find(post=> post.slug===slug)
 
