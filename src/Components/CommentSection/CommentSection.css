@@ -69,3 +69,6 @@
 .comment--btn:focus, .comment--confirm:focus{
     outline: 1px transparent solid;
 }
+div .comments--editMode{
+    background-color: #2c2c2c;
+}

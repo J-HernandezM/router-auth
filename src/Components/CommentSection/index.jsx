@@ -10,16 +10,14 @@ import './CommentSection.css'
 import styled from '@emotion/styled';
 
 const CommentSection = ({slug}) => {
-    const auth = useAuth()
     const { blogData } = useContext(BlogContext) 
     const blogpost = blogData.find(post=> post.slug===slug)
-    const commentInfo = {blogpost, auth}
 
     return (
         <Paper className='comments'>
-                <NewComment commentInfo={commentInfo} />
+                <NewComment blogpost={blogpost} />
                 <div className='comments--box'>
-                    {blogpost.comments.map((comment, index)=><Comment commentInfo={commentInfo} comment={comment} key={index}></Comment>
+                    {blogpost.comments.map((comment, index)=><Comment blogpost={blogpost} comment={comment} key={index}></Comment>
                     )}
                 </div> 
         </Paper>
@@ -43,10 +41,10 @@ const NewCommentForm = styled.form`
     margin-bottom: 20px;
 `
 
-const NewComment = ({commentInfo}) => {
-    const { blogpost, auth } = commentInfo
+const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
+    const auth = useAuth()
     const { addComment } = useContext(BlogContext)
-    const [commentContent, setCommentContent] = useState()
+    const { editComment } = useContext(BlogContext)
 
     const handleAdd = (event) => {
         const content = event.target.form[0].value
@@ -62,25 +60,39 @@ const NewComment = ({commentInfo}) => {
         //para quitar el focus
         event.target.blur()
     }
+    const handleEdit = (event) => {
+        const content = event.target.form[0].value
+        const newComment = {...comment}
+        newComment.content = content
+        newComment.author = auth.user?.username + ' edited'
+        editComment(blogpost, newComment, comment.id)
+        setEditMode(false)
+    }
 
     return(
-        <NewCommentForm className="comments--area" onSubmit={(event)=>{event.preventDefault}}>
+        <NewCommentForm className={`comments--area ${editMode?'comments--editMode':''}`} onSubmit={(event)=>{event.preventDefault}}>
             <StyledInputBase 
                 multiline
                 maxRows={13}
                 placeholder="Add a comment..."
-                onKeyDown={(event)=>{if(event.key=='Enter'){handleAdd(event)}}}
+                onKeyDown={(event)=>{
+                    if(event.key=='Enter'){
+                        if(editMode){handleEdit(event)
+                        }else{handleAdd(event)}
+                    }}}
             />
-            <button type='submit' onClick={handleAdd} className='comment--confirm'>Confirm</button>
+            <button type='submit' onClick={(event)=>{
+                if(editMode){handleEdit(event)
+                }else{handleAdd(event)}
+            }} className='comment--confirm'>Confirm</button>
         </NewCommentForm>
     )
 }
 
-const Comment = ({comment, commentInfo}) => {
-    const { blogpost, auth } = commentInfo
-    const { editComment, deleteComment } = useContext(BlogContext)
-    const handleEdit = (event) => {
-    }
+const Comment = ({comment, blogpost}) => {
+    const { deleteComment } = useContext(BlogContext)
+    const [ editMode, setEditMode ] = useState(false)
+
     const handleDelete = (event) => {
         let currentNode = event.target
         while(currentNode.nodeName!='BUTTON'){
@@ -95,12 +107,12 @@ const Comment = ({comment, commentInfo}) => {
                 <p className='comment--author'>{comment.author}</p>
                 <div className="comment--buttons-box">
                     <p className='comment--likes comment--btn'>{comment.likes}</p>
-                    <button onClick={handleEdit} data-id={comment.id} type='button' className='comment--btn'><EditIcon fontSize='small' /></button>
+                    <button onClick={()=>{setEditMode(true)}} data-id={comment.id} type='button' className='comment--btn'><EditIcon fontSize='small' /></button>
                     <button onClick={handleDelete} data-id={comment.id} type='button' className='comment--btn'><DeleteIcon fontSize='small' /></button>
                 </div>
             </div>
-            <p className='comment--content'>{comment.content}</p>
-            
+            {!editMode && <p className='comment--content'>{comment.content}</p>}
+            {editMode && <NewComment blogpost={blogpost} comment={comment} editMode={true} setEditMode={setEditMode}></NewComment>}
         </div>
     )
 }
