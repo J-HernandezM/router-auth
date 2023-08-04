@@ -15,6 +15,14 @@ const HomePaper = styled(Paper)`
         min-height: 500px;
         width: 80%;
 `
+const MarkDown = styled(ReactMarkdown)`
+        min-width: 300px;
+        max-width: 900px;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+`
+
 const markdown = `
 
 This is a test for a blog created using **React Router**, aplying authorization and authentication and some other features like the following:
@@ -22,11 +30,14 @@ This is a test for a blog created using **React Router**, aplying authorization 
     - Add, edit or delete posts
     - Add, edit or delete comments
     - Dynamic profiles with specific routes
-    - Validations of authorization and authentication permissions
-    - Persistance of information using localStorage
-    - Both **posts** and **comments** supports markdown
+    - Validations of authorization and
+      authentication permissions
+    - Persistance of information using
+      localStorage
+    - Both posts and comments supports
+      markdown
 
-If you want to try all the features login as 'admin', you can also login as 'editor' or the name you want to see the author permissions.
+**If you want to try all the features login as 'admin'**, you can also login as 'editor' or the name you want to see the author permissions.
 
 Made by: [J-HernandezM](https://github.com/J-HernandezM) :)
 
@@ -38,8 +49,8 @@ function HomePage(props) {
         <>
             <h1>HomePage</h1>
             <HomePaper>
-                <ReactMarkdown children={markdown} />
-                <img style={{width:'400px', alignSelf:'center', marginTop:'10px'}} src="https://media.tenor.com/NFeV9svhtREAAAAC/community-ken-jeong.gif"/>
+                <MarkDown children={markdown} />
+                <img style={{maxWidth:'300px', alignSelf:'center', marginTop:'10px'}} src="https://media.tenor.com/NFeV9svhtREAAAAC/community-ken-jeong.gif"/>
             </HomePaper>
         </>
     );

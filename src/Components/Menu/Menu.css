@@ -1,17 +1,37 @@
 nav ul li{
     list-style: none;
+    transform: scale(1);
+    transition: .4s transform;
+}
+nav ul li:hover{
+    transform: scale(1.1);
 }
 nav ul li a{
     text-decoration: none;
+    transition: color .4s;
+}
+nav ul li:hover > a{
+    color: #f7f7f7 !important;
 }
 nav ul {
     padding: 0;
     display: flex;
-    width: 400px;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    min-width: 360px;
+    max-width: 585px;
+    width: 70%;
 }
 nav{
     display: flex;
     justify-content: center;
-    padding: 20px 0 20px;
+    padding: 20px 0;
+    
+    width: 100%;
+    background-color: #121212;
+    color: #fff;
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
 }

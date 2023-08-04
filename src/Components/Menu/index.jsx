@@ -7,31 +7,31 @@ function Menu({userData}) {
     const routes = [{
         id:1,
         to:'/',
-        text:'homepage',
+        text:'Home',
         private: false
     },
     {
         id:2,
         to:'/blog',
-        text:'blog',
+        text:'Blogs',
         private: false
     },
     {
         id:3,
         to:`/profile${userData?`/${userData?.slug}`:''}`,
-        text:'profile',
+        text:'Profil',
         private: true
     },
     {
         id:4,
         to:'/login',
-        text:'login',
+        text:'Login',
         private: false
     },
     {
         id:5,
         to:'/logout',
-        text:'logout',
+        text:'Logout',
         private: true
     }]
 
