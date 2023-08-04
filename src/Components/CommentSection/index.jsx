@@ -4,10 +4,11 @@ import { useContext, useRef, useState } from 'react';
 import { InputBase } from '@mui/material';
 import { useAuth } from '../../auth'
 import { v4 as uuidv4 } from 'uuid'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import './CommentSection.css'
+import { ModalContext } from '../../Context/ModalContext';
+import { DeleteCommentButton } from './DeleteCommentButton';
+import { EditCommentButton } from './EditCommentButton';
 import styled from '@emotion/styled';
+import './CommentSection.css'
 
 const CommentSection = ({slug}) => {
     const { blogData } = useContext(BlogContext) 
@@ -43,23 +44,27 @@ const NewCommentForm = styled.form`
 `
 
 const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
+    const { setModalOn } = useContext(ModalContext)
+    const { addComment, editComment } = useContext(BlogContext)
     const auth = useAuth()
-    const { addComment } = useContext(BlogContext)
-    const { editComment } = useContext(BlogContext)
 
     const handleAdd = (event) => {
-        const content = event.target.form[0].value
-        const author = auth.user?.username
-        const likes = 1
-        const id = uuidv4()
-        const date = '01/01/23'
-        const newComment = {
-            content, author, likes, id, date
+        if(!auth.user){
+            setModalOn(true)
+        }else if(!!auth.user){
+            const content = event.target.form[0].value
+            const author = auth.user?.username
+            const likes = 1
+            const id = uuidv4()
+            const date = '01/01/23'
+            const newComment = {
+                content, author, likes, id, date
+            }
+            addComment(blogpost, newComment)
+            event.target.form[0].value = ''
+            //para quitar el focus
+            event.target.blur()
         }
-        addComment(blogpost, newComment)
-        event.target.form[0].value = ''
-        //para quitar el focus
-        event.target.blur()
     }
     const handleEdit = (event) => {
         const content = event.target.form[0].value
@@ -71,45 +76,43 @@ const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
     }
 
     return(
-        <NewCommentForm className={editMode?'comments--editMode':''} onSubmit={(event)=>{event.preventDefault}}>
-            <StyledInputBase 
-                multiline
-                maxRows={13}
-                placeholder="Add a comment..."
-                onKeyDown={(event)=>{
-                    if(event.key=='Enter'){
-                        if(editMode){handleEdit(event)
-                        }else{handleAdd(event)}
-                    }}}
-            />
-            <button type='submit' onClick={(event)=>{
-                if(editMode){handleEdit(event)
-                }else{handleAdd(event)}
-            }} className='comment--confirm'>Confirm</button>
-        </NewCommentForm>
+        <>
+            <NewCommentForm className={editMode?'comments--editMode':''}>
+                <StyledInputBase
+                    multiline
+                    maxRows={13}
+                    placeholder="Add a comment..."
+                    onKeyDown={(event)=>{
+                        if(event.key=='Enter'){
+                            if(editMode){handleEdit(event)
+                            }else{handleAdd(event)}
+                        }}}
+                />
+                <button type='button' onClick={(event)=>{
+                    if(editMode){handleEdit(event)
+                    }else{handleAdd(event)}
+                }} className='comment--confirm'>Confirm</button>
+            </NewCommentForm>
+            
+        </>
     )
 }
 
 const Comment = ({comment, blogpost}) => {
-    const { deleteComment } = useContext(BlogContext)
+    const auth = useAuth()
     const [ editMode, setEditMode ] = useState(false)
 
-    const handleDelete = (event) => {
-        let currentNode = event.target
-        while(currentNode.nodeName!='BUTTON'){
-            currentNode=currentNode.parentElement
-        }
-        const id = currentNode.dataset.id
-        deleteComment(blogpost, id)
-    }
+    const canEdit = (!!auth.user && (auth.user.role=='admin' || auth.user.role=='editor' || comment.author===auth.user.username))?true:false
+    const canDelete = (!!auth.user && (auth.user.role=='admin' || comment.author===auth.user.username))?true:false
+
     return(
         <div className='comment'>
             <div className='comment--header'>
                 <p className='comment--author'>{comment.author}</p>
                 <div className="comment--buttons-box">
                     <p className='comment--likes comment--btn'>{comment.likes}</p>
-                    <button onClick={()=>{setEditMode(true)}} data-id={comment.id} type='button' className='comment--btn'><EditIcon fontSize='small' /></button>
-                    <button onClick={handleDelete} data-id={comment.id} type='button' className='comment--btn'><DeleteIcon fontSize='small' /></button>
+                    {canEdit && <EditCommentButton comment={comment} setEditMode={setEditMode}/>}
+                    {canDelete && <DeleteCommentButton comment={comment}/>}
                 </div>
             </div>
             {!editMode && <p className='comment--content'>{comment.content}</p>}

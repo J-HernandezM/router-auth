@@ -5,8 +5,10 @@ import { BlogContext } from '../../Context/BlogContext'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../../auth'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { ModalContext } from '../../Context/ModalContext'
 
-function Modal({type, setModalOn}){
+function Modal({type}){
+    const { setModalOn }= useContext(ModalContext)
     const auth = useAuth()
     const navigate = useNavigate()
     const {pushData, blogData, editData} = useContext(BlogContext)
@@ -41,11 +43,9 @@ function Modal({type, setModalOn}){
         
     }
     const handleCancel = () => {setModalOn(false)}
-    const handleNotLogged = () => {navigate(
-        '/login',
-        {
-            state: location
-        }
+    const handleNotLogged = () => {
+        setModalOn(false)
+        navigate('/login', {state: location}
     )}
 
     return(
