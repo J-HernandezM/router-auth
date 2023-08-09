@@ -1,13 +1,15 @@
 .userProfiles{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
     position: relative;
     padding: 20px 30px;
+    gap: 10px;
     min-width: 360px;
-    max-width: 900px;
-    min-height: 500px;
+    max-width: 550px;
+
     width: 80%;
+    border-radius: 16px !important;
 }
 .userProfiles--nothing{
     align-items: center;
@@ -18,4 +20,27 @@
     line-height: 35px;
     display: inline-block;
     max-width: 320px;
+}
+.profile--edit--button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.profile--picBox{
+    width: 200px;
+    height: 200px;
+}
+.profile--pic{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 100px;
+    box-shadow: 0px 2px 10px 10px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.profile--naming{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
 }

@@ -51,7 +51,7 @@ function App() {
                     </AuthRoute>
                   }
                 >
-                  <Route path=':slug' element={<UserProfile/>}/>
+                  <Route path=':slug' element={<UserProfile userData={userData} setUser={setUser} />}/>
                 </Route>
 
 
