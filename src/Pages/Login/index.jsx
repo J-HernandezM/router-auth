@@ -21,8 +21,13 @@ function Login(props) {
             role = currentUser?.role
             if(currentUser){return(true)}
         })
+        const alreadySaved = usersLogged.some((user) => user.username==username)
         props.setUser({...props.userData, username, role, slug})
-        saveUsersLogged([...usersLogged, {username, role, slug}])
+        if(!alreadySaved){
+            saveUsersLogged([...usersLogged, {username, role, slug}])
+        }else{
+            alert('already saved user, just log in');
+        }
     }
 
     function login(event){

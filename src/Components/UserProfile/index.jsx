@@ -15,13 +15,13 @@ function UserProfile({userData, setUser}) {
 
     //User exists in backend?
     const {usersLogged} = useLocalStorage({key: 'LOGGED_USERS'})
-    console.log(usersLogged);
     const usersLoggedA = [...usersLogged]
     const currentUser = usersLoggedA.find(user=>user.slug===slug)
-    console.log(currentUser);
     //User owns the current profile page
     const auth = useAuth()
     const ownProfile = currentUser?.username===auth.user?.username?true:false
+
+    console.log(usersLogged);
 
     const handleClick = () => {
         setModalOn(true)
