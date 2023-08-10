@@ -73,7 +73,6 @@ function Modal({type, isProfile, userData, setUser}){
                 phone: formData.get('phone'),
                 description: formData.get('description')
             }
-            setUser({...userData, ...additionalData})
             const alreadySaved = usersLogged.some((user) => user.username==auth.user?.username)
             if(alreadySaved){
                 const newLocalStorage = [...usersLogged]
@@ -88,9 +87,9 @@ function Modal({type, isProfile, userData, setUser}){
             }else{
                 saveUsersLogged([...usersLogged, {...userData, ...additionalData}])
             }
+            setUser({...userData, ...additionalData})
             setModalOn(false)
         }
-
     }
 
     return(

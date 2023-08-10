@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocalStorage } from '../../Hooks/useLocalStorage';
 import { Paper } from '@mui/material';
@@ -20,8 +20,7 @@ function UserProfile({userData, setUser}) {
     //User owns the current profile page
     const auth = useAuth()
     const ownProfile = currentUser?.username===auth.user?.username?true:false
-
-    console.log(usersLogged);
+    const useThis = ownProfile?userData:currentUser
 
     const handleClick = () => {
         setModalOn(true)
@@ -33,14 +32,14 @@ function UserProfile({userData, setUser}) {
             {currentUser && 
                 <>
                     <figure className="profile--picBox">
-                        <img className='profile--pic' src={userData.profilePic} alt="profile pic" />
+                        <img className='profile--pic' src={useThis.profilePic?useThis.profilePic:'/user.png'} alt="profile pic" />
                     </figure>
                     <div className="profile--naming">
-                        <p className='profile--name' >{userData.name}</p>
-                        <p className='profile--username' >@{userData.username}</p>
+                        <p className='profile--name' >{useThis.name}</p>
+                        <p className='profile--username' >@{useThis.username}</p>
                     </div>
-                    <p className='profile--phone' >{userData.phone}</p>
-                    <ReactMarkdown className='profile--description' >{userData.description}</ReactMarkdown>
+                    <p className='profile--phone' >{useThis.phone}</p>
+                    <ReactMarkdown className='profile--description' >{useThis.description}</ReactMarkdown>
                 </>
             }
             {ownProfile && <button className='profile--edit--button' onClick={handleClick}><EditIcon fontSize='small' /></button>}
