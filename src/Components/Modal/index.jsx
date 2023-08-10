@@ -17,7 +17,7 @@ function Modal({type, isProfile, userData, setUser}){
     const currentPost = blogData.find(post=> post.slug===slug)
     const location = useLocation()
     const form = useRef(null)
-    const {usersLogged, saveUsersLogged} = useLocalStorage({key: 'LOGGED_USERS'})
+    const {usersLogged, saveUsersLogged} = useLocalStorage({defaultData: [], key: 'LOGGED_USERS'})
 
 
     const handleConfirm = (event) => {

@@ -14,7 +14,7 @@ function UserProfile({userData, setUser}) {
     const { setModalOn, modalOn }= useContext(ModalContext)
 
     //User exists in backend?
-    const {usersLogged} = useLocalStorage({key: 'LOGGED_USERS'})
+    const {usersLogged} = useLocalStorage({key: 'LOGGED_USERS', defaultData: []})
     const usersLoggedA = [...usersLogged]
     const currentUser = usersLoggedA.find(user=>user.slug===slug)
     //User owns the current profile page
