@@ -35,9 +35,19 @@
     margin-bottom: 10px;
 }
 .comment--author{
+    width: fit-content;
     font-size: 18px;
     font-weight: bold;
     text-align: start;
+    text-decoration: none;
+    color: #f7f7f7;
+    transform: scale(1);
+    transition: all .3s;
+}
+.comment--author:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    color: #90caf9;
 }
 .comment--author::before{
     content: '@';

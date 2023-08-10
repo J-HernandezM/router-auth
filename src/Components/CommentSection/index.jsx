@@ -9,6 +9,7 @@ import { DeleteCommentButton } from './DeleteCommentButton';
 import { EditCommentButton } from './EditCommentButton';
 import styled from '@emotion/styled';
 import './CommentSection.css'
+import { Link } from 'react-router-dom';
 
 const CommentSection = ({slug}) => {
     const { blogData } = useContext(BlogContext) 
@@ -101,14 +102,14 @@ const NewComment = ({blogpost, editMode, comment, setEditMode}) => {
 const Comment = ({comment, blogpost}) => {
     const auth = useAuth()
     const [ editMode, setEditMode ] = useState(false)
-
     const canEdit = (!!auth.user && (auth.user.role=='admin' || auth.user.role=='editor' || comment.author===auth.user.username))?true:false
     const canDelete = (!!auth.user && (auth.user.role=='admin' || comment.author===auth.user.username))?true:false
+    const slug = `${comment.author.toLowerCase().replaceAll(' ', '-')}`
 
     return(
         <div className='comment'>
             <div className='comment--header'>
-                <p className='comment--author'>{comment.author}</p>
+                <Link to={`/profile/${slug}`} className='comment--author'>{comment.author}</Link>
                 <div className="comment--buttons-box">
                     <p className='comment--likes comment--btn'>{comment.likes}</p>
                     {canEdit && <EditCommentButton comment={comment} setEditMode={setEditMode}/>}
