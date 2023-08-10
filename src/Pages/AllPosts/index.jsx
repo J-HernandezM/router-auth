@@ -15,7 +15,7 @@ function AllPosts(){
         <>
             <h1>All Posts</h1>
             <ul className='posts--grid'>
-                {blogData.map((post)=>{
+                {blogData.slice(0).reverse().map((post)=>{
                     return (<BlogLink key={post.slug} post={post}/>)
                 })}
             </ul>

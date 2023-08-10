@@ -15,7 +15,7 @@ function Blog(props) {
         <>
             <h1>BlogPost</h1>
             <ul className='posts--grid'>
-                {!isEmpty && blogData.map((post, index)=>{
+                {!isEmpty && blogData.slice(0).reverse().map((post, index)=>{
                     if(index<=5){
                         return (<BlogLink key={post.id} post={post}/>)
                     }
