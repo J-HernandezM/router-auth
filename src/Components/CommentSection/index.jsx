@@ -19,7 +19,7 @@ const CommentSection = ({slug}) => {
         <Paper className='comments'>
                 <NewComment blogpost={blogpost} />
                 <div className='comments--box'>
-                    {blogpost.comments.map((comment, index)=><Comment blogpost={blogpost} comment={comment} key={index}></Comment>
+                    {blogpost.comments?.map((comment, index)=><Comment blogpost={blogpost} comment={comment} key={index}></Comment>
                     )}
                 </div> 
         </Paper>
