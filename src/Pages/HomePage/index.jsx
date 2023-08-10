@@ -36,6 +36,11 @@ This is a test for a blog created using **React Router**, aplying authorization 
       localStorage
     - Both posts and comments supports
       markdown
+    - Dynamic profiles
+    - Edit your own profile and see other profiles
+    - Profile information persists (Except for profile image :c)
+    - Comments leads to author's profile (if it has been created before)
+    
 
 **If you want to try all the features login as 'admin'**, you can also login as 'editor' or the name you want to see the author permissions.
 
